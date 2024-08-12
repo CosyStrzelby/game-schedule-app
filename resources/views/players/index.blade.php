@@ -6,7 +6,7 @@
     <ul>
         @foreach($players as $player)
             <li>
-                {{ $player->user->name }} - {{ $player->team->name }} - {{ $player->role }}
+                {{ $player->user->name }} - {{ $player->team->name }} ({{ ucfirst($player->role) }})
                 <a href="{{ route('players.show', $player->id) }}">View</a>
                 <a href="{{ route('players.edit', $player->id) }}">Edit</a>
                 <form action="{{ route('players.destroy', $player->id) }}" method="POST" style="display:inline;">
