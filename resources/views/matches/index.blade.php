@@ -2,9 +2,9 @@
 @section('title', 'Matches')
 @section('content')
     <h1 class="text-center text-white mb-8" style="font-size: 36px; font-weight: bold;">Matches</h1>
-    <div class="container mx-auto flex justify-center mb-4">
-        <a href="{{ route('matches.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Create New Match
+    <div class="container mx-auto mb-4 text-right" >
+        <a href="{{ route('matches.create') }}" class=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+           + Create New Match
         </a>
     </div>
     <div class="container mx-auto flex justify-center">
@@ -28,7 +28,7 @@
                             @foreach($events as $event)
                                 @if (date('Y-m-d', strtotime($event->date)) == date('Y-m-' . $i))
                                     <div class="event bg-blue-500 rounded p-1 mt-1">
-                                        {{ $event->name }}
+                                        {{ $event->name }} <br> {{ date('H:i', strtotime($event->date)) }}
                                     </div>
                                 @endif
                             @endforeach
