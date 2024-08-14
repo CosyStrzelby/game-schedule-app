@@ -1,16 +1,16 @@
 @extends('layouts.app')
 @section('title', 'Matches')
 @section('content')
-    <h1 class="text-center text-white mb-8" style="font-size: 36px; font-weight: bold;">Matches</h1>
-    <div class="container mx-auto mb-4 text-right" >
-        <a href="{{ route('matches.create') }}" class=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-           + Create New Match
+    <h1 class="text-center text-white mb-8 py-3" style="font-size: 48px; font-weight: bolder;">Matches</h1>
+    <div class="container mx-auto mb-4 text-right">
+        <a href="{{ route('matches.create') }}" class="hover:text-gray-500 font-bold py-2 px-4 rounded text-white px-20">
+            + Create New Match
         </a>
     </div>
     <div class="container mx-auto flex justify-center">
         <div class="bg-gray-800 p-6 rounded-lg w-full max-w-4xl">
             <div class="calendar">
-                <div class="header flex justify-center mb-4">
+                <div class="header flex justify-center mb-4  text-center text-white font-bold px-6 py-3 underline" style="font-size: 32px; color: #ced2d4; font-style: italic  ">
                     <div class="month-year text-2xl font-bold text-white">
                         {{ $monthYear }}
                     </div>
@@ -25,10 +25,17 @@
                     @for ($i = 1; $i <= $numDays; $i++)
                         <div class="day_num text-center p-2 bg-gray-700 text-white rounded">
                             <span>{{ $i }}</span>
-                            @foreach($events as $event)
-                                @if (date('Y-m-d', strtotime($event->date)) == date('Y-m-' . $i))
+                            @foreach($matches as $match)
+                                @if (date('Y-m-d', strtotime($match->match_date)) == date('Y-m-' . $i))
                                     <div class="event bg-blue-500 rounded p-1 mt-1">
-                                        {{ $event->name }} <br> {{ date('H:i', strtotime($event->date)) }}
+                                        {{ $match->team1->name }} vs {{ $match->team2->name }} <br> {{ date('H:i', strtotime($match->match_date)) }}
+                                        <form action="{{ route('matches.destroy', $match->id) }}" method="POST" class="mt-2">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">
+                                                Delete
+                                            </button>
+                                        </form>
                                     </div>
                                 @endif
                             @endforeach

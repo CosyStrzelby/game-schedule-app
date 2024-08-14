@@ -36,6 +36,30 @@
                     </button>
                 </div>
             </form>
+            <form action="{{ route('players.addRole', $player->id) }}" method="POST" class="mt-6">
+                @csrf
+                <input type="hidden" name="user_id" value="{{ $player->user_id }}">
+                <div class="mb-4">
+                    <label for="new_team_id" class="block text-white font-bold mb-2">New Team:</label>
+                    <select name="new_team_id" id="new_team_id" class="form-select mt-1 block w-full" required>
+                        @foreach($teams as $team)
+                            <option value="{{ $team->id }}">{{ $team->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="new_role" class="block text-white font-bold mb-2">New Role:</label>
+                    <select name="new_role" id="new_role" class="form-select mt-1 block w-full" required>
+                        <option value="reserve">Reserve</option>
+                        <option value="starter">Starter</option>
+                    </select>
+                </div>
+                <div class="text-right">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Add Role
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 @endsection
