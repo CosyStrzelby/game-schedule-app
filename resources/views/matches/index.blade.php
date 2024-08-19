@@ -22,25 +22,28 @@
                     @for ($i = 0; $i < $paddingDays; $i++)
                         <div class="day_num ignore bg-gray-700 text-gray-500 p-2 rounded"></div>
                     @endfor
-                    @for ($i = 1; $i <= $numDays; $i++)
-                        <div class="day_num text-center p-2 bg-gray-700 text-white rounded">
-                            <span>{{ $i }}</span>
-                            @foreach($matches as $match)
-                                @if (date('Y-m-d', strtotime($match->match_date)) == date('Y-m-' . $i))
-                                    <div class="event bg-blue-500 rounded p-1 mt-1">
-                                        {{ $match->team1->name }} vs {{ $match->team2->name }} <br> {{ date('H:i', strtotime($match->match_date)) }}
-                                        <form action="{{ route('matches.destroy', $match->id) }}" method="POST" class="mt-2">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">
-                                                Delete
-                                            </button>
-                                        </form>
-                                    </div>
-                                @endif
-                            @endforeach
-                        </div>
-                    @endfor
+                        @for ($i = 1; $i <= $numDays; $i++)
+                            <div class="day_num text-center p-2 bg-gray-700 text-white rounded">
+                                <span>{{ $i }}</span>
+                                @foreach($matches as $match)
+                                    @if (date('Y-m-d', strtotime($match->match_date)) == date('Y-m-' . $i))
+                                        <div class="event bg-blue-500 rounded p-1 mt-1">
+                                            <a href="{{ route('matches.show', $match->id) }}" class="text-white hover:underline">
+                                                {{ $match->team1->name }} vs {{ $match->team2->name }} <br>
+                                                {{ date('H:i', strtotime($match->match_date)) }}
+                                            </a>
+                                            <form action="{{ route('matches.destroy', $match->id) }}" method="POST" class="mt-2">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
+                        @endfor
                     @for ($i = 1; $i <= (42 - $numDays - max($paddingDays, 0)); $i++)
                         <div class="day_num ignore bg-gray-700 text-gray-500 p-2 rounded"></div>
                     @endfor

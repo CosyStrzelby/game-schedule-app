@@ -19,4 +19,9 @@ class Player extends Model
     {
         return $this->hasMany(Notification::class);
     }
+    public function players()
+    {
+        return
+        $this->belongsToMany(Player::class, 'matches_player', 'match_id', 'player_id');
+    }
 }
